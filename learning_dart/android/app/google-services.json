@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "396159394257",
+    "project_id": "hakim-learning-flutter",
+    "storage_bucket": "hakim-learning-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396159394257:android:97f4972301a260162fc0f0",
+        "android_client_info": {
+          "package_name": "com.learningFlutter.hakim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdwfArySXBpzWAokh4IGINnJ_GOoIEBXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
