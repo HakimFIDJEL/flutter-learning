@@ -1,6 +1,7 @@
 // Register view
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as devtools show log;
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -65,12 +66,12 @@ class _RegisterViewState extends State<RegisterView> {
                     email: email,
                     password: password,
                   );
-                  print('- User registered');
-                  print(userCredential);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/verify-email/',
+                    (route) => false,
+                  );
                 } catch (e) {
-                  print('- Something bad happened');
-                  print(e.runtimeType);
-                  print(e);
+                  devtools.log('Failed to register user: $e');
                 }
               },
               child: const Text('Register'),

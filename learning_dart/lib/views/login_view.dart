@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as devtools show log;
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -79,9 +80,7 @@ class _LoginViewState extends State<LoginView> {
                     }
                   }
                 } catch (e) {
-                  print('- Something bad happened');
-                  print(e.runtimeType);
-                  print(e);
+                  devtools.log('Failed to login: $e');
                 }
               },
               child: const Text('Login'),
