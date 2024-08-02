@@ -1,9 +1,16 @@
+import 'package:learning_dart/services/auth/firebase_auth_provider.dart';
+
 import 'auth_provider.dart';
 import 'auth_user.dart';
 
 class AuthService implements AuthProvider {
   final AuthProvider _provider;
   const AuthService(this._provider);
+
+  factory AuthService.firebase() => AuthService(FirebaseAuthProvider());
+
+  @override
+  Future<void> initialize() => _provider.initialize();
 
   @override
   Future<AuthUser> login({
