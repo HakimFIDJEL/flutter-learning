@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_dart/constants/routes.dart';
 import 'package:learning_dart/views/login_view.dart';
 import 'package:learning_dart/views/notes_view.dart';
 import 'package:learning_dart/views/register_view.dart';
@@ -20,10 +21,10 @@ void main() async {
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView(),
-        '/verify-email/': (context) => const VerifyEmailView(),
-        '/notes/': (context) => const NotesView(),
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
+        notesRoute: (context) => const NotesView(),
       },
     ),
   );
@@ -45,14 +46,11 @@ class HomePage extends StatelessWidget {
 
             if (user != null) {
               if (user.emailVerified) {
-                print('- User is verified');
                 return const NotesView();
               } else {
-                print('- User is not verified');
                 return const VerifyEmailView();
               }
             } else {
-              print('- User is not logged in');
               return const LoginView();
             }
 
