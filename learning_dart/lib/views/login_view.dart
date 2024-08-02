@@ -64,8 +64,20 @@ class _LoginViewState extends State<LoginView> {
                     email: email,
                     password: password,
                   );
-                  print('- User logged in');
-                  print(userCredential);
+                  final user = userCredential.user;
+                  if (user != null) {
+                    if (user.emailVerified) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/notes/',
+                        (route) => false,
+                      );
+                    } else {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/verify-email/',
+                        (route) => false,
+                      );
+                    }
+                  }
                 } catch (e) {
                   print('- Something bad happened');
                   print(e.runtimeType);

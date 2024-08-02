@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_dart/views/login_view.dart';
+import 'package:learning_dart/views/notes_view.dart';
 import 'package:learning_dart/views/register_view.dart';
 import 'package:learning_dart/views/verify_email_view.dart';
 import 'firebase_options.dart';
@@ -21,6 +22,8 @@ void main() async {
       routes: {
         '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
+        '/verify-email/': (context) => const VerifyEmailView(),
+        '/notes/': (context) => const NotesView(),
       },
     ),
   );
@@ -43,7 +46,7 @@ class HomePage extends StatelessWidget {
             if (user != null) {
               if (user.emailVerified) {
                 print('- User is verified');
-                return Scaffold();
+                return const NotesView();
               } else {
                 print('- User is not verified');
                 return const VerifyEmailView();
