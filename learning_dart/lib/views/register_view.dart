@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
 import 'package:learning_dart/constants/routes.dart';
+import 'package:learning_dart/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -75,9 +76,25 @@ class _RegisterViewState extends State<RegisterView> {
                     );
                   } else {
                     devtools.log('Failed to register user');
+                    await showErrorDialog(
+                      context,
+                      'Failed to register user',
+                    );
                   }
+                } on FirebaseAuthException catch (e) {
+                  devtools.log('Failed to register: $e');
+
+                  await showErrorDialog(
+                    context,
+                    e.message ?? 'An error occurred',
+                  );
                 } catch (e) {
-                  devtools.log('Failed to register user: $e');
+                  devtools.log('Failed to register: $e');
+
+                  await showErrorDialog(
+                    context,
+                    e.toString(),
+                  );
                 }
               },
               child: const Text('Register'),
