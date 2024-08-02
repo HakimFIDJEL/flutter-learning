@@ -50,7 +50,9 @@ class _NotesViewState extends State<NotesView> {
           ),
         ],
       ),
-      body: const Text('Your notes will be displayed here'),
+      body: const Center(
+        child: Text('Your notes will be displayed here'),
+      ),
     );
   }
 }
