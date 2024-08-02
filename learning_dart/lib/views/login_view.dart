@@ -76,6 +76,7 @@ class _LoginViewState extends State<LoginView> {
                         (route) => false,
                       );
                     } else {
+                      await user.sendEmailVerification();
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         verifyEmailRoute,
                         (route) => false,
