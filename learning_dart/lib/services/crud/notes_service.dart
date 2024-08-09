@@ -18,9 +18,26 @@ class NotesService {
 
     try {
       final docsPath = await getApplicationDocumentsDirectory();
+      final dbPath = join(docsPath.path, dbName);
+      final db = await openDatabase(dbPath);
+      _db = db;
+
+      await db.execute(createUserTable);
+      await db.execute(createNoteTable);
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectoryException();
+    } catch (e) {
+      rethrow;
     }
+  }
+
+  Future<void> close() async {
+    if (_db == null) {
+      return;
+    }
+
+    await _db!.close();
+    _db = null;
   }
 }
 
@@ -94,3 +111,24 @@ const String notesIdColumn = 'id';
 const String notesUserIdColumn = 'user_id';
 const String notesTextColumn = 'text';
 const String notesIsSyncedWithCloudColumn = 'is_synced_with_cloud';
+
+// User table
+const createUserTable = '''
+  CREATE TABLE IF NOT EXISTS $usersTable (
+    $userIdColumn INTEGER NOT NULL,
+    $userEmailColumn TEXT NOT NULL,
+    PRIMARY KEY ($userIdColumn AUTOINCREMENT)
+  );
+''';
+
+// Note table
+const createNoteTable = '''
+  CREATE TABLE IF NOT EXISTS $notesTable (
+    $notesIdColumn INTEGER NOT NULL,
+    $notesUserIdColumn INTEGER NOT NULL,
+    $notesTextColumn TEXT,
+    $notesIsSyncedWithCloudColumn INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY ($notesUserIdColumn) REFERENCES $usersTable($userIdColumn),
+    PRIMARY KEY ($notesIdColumn AUTOINCREMENT)
+  );
+''';
